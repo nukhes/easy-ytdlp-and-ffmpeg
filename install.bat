@@ -1,46 +1,50 @@
 @echo off
 SETLOCAL
 
-REM Explorer Integration
-regedit /s "%~dp0\src\yt-dlp.reg"
-regedit /s "%~dp0\src\ffmpeg.reg"
+REM Caminho de destino para as ferramentas
+SET TOOLS_DIR=C:\video-tools
 
-REM Define the download URLs
+REM Links de download
 SET YT_DLP_URL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe
 SET FFMPEG_URL=https://github.com/GyanD/codexffmpeg/releases/download/7.1/ffmpeg-7.1-essentials_build.zip
 
-REM Create the folder
-SET TOOLS_DIR=C:\video-tools
-IF NOT EXIST "%TOOLS_DIR%" (
+REM Integração com o Explorer
+if exist "%~dp0src\yt-dlp.reg" regedit /s "%~dp0src\yt-dlp.reg"
+if exist "%~dp0src\ffmpeg.reg" regedit /s "%~dp0src\ffmpeg.reg"
+
+REM Criar a pasta de destino
+if not exist "%TOOLS_DIR%" (
     mkdir "%TOOLS_DIR%"
 )
 
-REM Download YT-DLP
+REM Baixar yt-dlp
 echo Downloading yt-dlp...
-powershell -Command "Invoke-WebRequest -Uri %YT_DLP_URL% -OutFile '%TOOLS_DIR%\yt-dlp.exe'"
+powershell -Command "Invoke-WebRequest -Uri '%YT_DLP_URL%' -OutFile '%TOOLS_DIR%\\yt-dlp.exe'"
 
-REM Download FFMPEG
+REM Baixar ffmpeg
 echo Downloading ffmpeg...
-powershell -Command "Invoke-WebRequest -Uri %FFMPEG_URL% -OutFile '%TOOLS_DIR%\ffmpeg.zip'"
+powershell -Command "Invoke-WebRequest -Uri '%FFMPEG_URL%' -OutFile '%TOOLS_DIR%\\ffmpeg.zip'"
 
-REM Extract FFMPEG
+REM Extrair ffmpeg
 echo Extracting ffmpeg...
-powershell -Command "Expand-Archive -Path '%TOOLS_DIR%\ffmpeg.zip' -DestinationPath '%TOOLS_DIR%' -Force"
+powershell -Command "Expand-Archive -Path '%TOOLS_DIR%\\ffmpeg.zip' -DestinationPath '%TOOLS_DIR%' -Force"
 
-REM Move o executável do FFMPEG para a pasta principal
-SET FFMPEG_BIN_DIR=%TOOLS_DIR%\ffmpeg-*-essentials_build.zip\bin
-MOVE "%FFMPEG_BIN_DIR%\ffmpeg.exe" "%TOOLS_DIR%\ffmpeg.exe"
-MOVE "%FFMPEG_BIN_DIR%\ffplay.exe" "%TOOLS_DIR%\ffplay.exe"
-MOVE "%FFMPEG_BIN_DIR%\ffprobe.exe" "%TOOLS_DIR%\ffprobe.exe"
+REM Mover executáveis do ffmpeg
+for /d %%D in ("%TOOLS_DIR%\ffmpeg-*") do (
+    MOVE "%%D\bin\ffmpeg.exe" "%TOOLS_DIR%\ffmpeg.exe"
+    MOVE "%%D\bin\ffplay.exe" "%TOOLS_DIR%\ffplay.exe"
+    MOVE "%%D\bin\ffprobe.exe" "%TOOLS_DIR%\ffprobe.exe"
+    rmdir /s /q "%%D"
+)
 
-REM Remove a pasta extra e o arquivo .7z
-rmdir /s /q "%TOOLS_DIR%\ffmpeg-*-essentials_build"
+REM Remover arquivos temporários
 DEL "%TOOLS_DIR%\ffmpeg.zip"
 
-REM Add to PATH
-SETX PATH "%PATH%;%TOOLS_DIR%"
+REM Adicionar ao PATH
+SET PATH=%PATH%;%TOOLS_DIR%
+SETX PATH "%PATH%"
 
-echo Installation Complete, the binaries are in "C:\video-tools", they can be accessed from any command prompt or via the convenient shortcuts in Windows Explorer, an uninstall script is located in the same directory.
-
-ENDLOCAL
+echo Installation Complete!
+echo The binaries are in "%TOOLS_DIR%", and they can be accessed from any command prompt.
 pause
+ENDLOCAL
