@@ -28,13 +28,13 @@ echo Extracting ffmpeg...
 powershell -Command "Expand-Archive -Path '%TOOLS_DIR%\ffmpeg.zip' -DestinationPath '%TOOLS_DIR%' -Force"
 
 REM Move o executável do FFMPEG para a pasta principal
-SET FFMPEG_BIN_DIR=%TOOLS_DIR%\ffmpeg-*\bin
+SET FFMPEG_BIN_DIR=%TOOLS_DIR%\ffmpeg-*-essentials_build.zip\bin
 MOVE "%FFMPEG_BIN_DIR%\ffmpeg.exe" "%TOOLS_DIR%\ffmpeg.exe"
 MOVE "%FFMPEG_BIN_DIR%\ffplay.exe" "%TOOLS_DIR%\ffplay.exe"
 MOVE "%FFMPEG_BIN_DIR%\ffprobe.exe" "%TOOLS_DIR%\ffprobe.exe"
 
 REM Remove a pasta extra e o arquivo .7z
-rmdir /s /q "%FFMPEG_BIN_DIR%"
+rmdir /s /q "%TOOLS_DIR%\ffmpeg-*-essentials_build"
 DEL "%TOOLS_DIR%\ffmpeg.zip"
 
 REM Add to PATH
