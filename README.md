@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/5366885a-95f3-4b15-8397-9eb12ba1697f
 - Install the ffmpeg and yt-dlp binaries directly from source
 - Create an entry in PATH
 - Explorer context menu integration
-- 
+
 ## Installation
 Just run the `.\install.bat` and grab a coffee, to uninstall run `.\uninstall.bat`.
 
