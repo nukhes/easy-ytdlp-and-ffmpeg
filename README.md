@@ -7,7 +7,7 @@ https://github.com/user-attachments/assets/5366885a-95f3-4b15-8397-9eb12ba1697f
 # Features
 - Install the ffmpeg and yt-dlp binaries directly from source
 - Create an entry in PATH
-- Explorer context menu integration
+- Explorer context menu integration (If it doesn't work out of the box download the ytdlp.reg and ffmpeg.reg from the src folder of the repository and run them)
 
 ## Installation
 Paste this in Windows Powershell (open as admin): 
