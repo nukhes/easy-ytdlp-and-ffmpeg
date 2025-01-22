@@ -10,7 +10,12 @@ https://github.com/user-attachments/assets/5366885a-95f3-4b15-8397-9eb12ba1697f
 - Explorer context menu integration
 
 ## Installation
-Just run the `.\install.bat` and grab a coffee, to uninstall run `.\uninstall.bat`.
+Paste this in Windows Powershell (open as admin): 
+```
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c curl -o install.bat https://raw.githubusercontent.com/nukhes/easy-ytdlp-and-ffmpeg/refs/heads/main/install.bat && install.bat" -Verb RunAs
+```
+
+or run the `.\install.bat` and grab a coffee, to uninstall run `.\uninstall.bat`.
 
 ## Acknowledgements
  - [Explorer Integration](https://github.com/notthebee/ytdl-explorer)
