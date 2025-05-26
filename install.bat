@@ -8,10 +8,6 @@ REM Links de download
 SET YT_DLP_URL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe
 SET FFMPEG_URL=https://github.com/GyanD/codexffmpeg/releases/download/7.1/ffmpeg-7.1-essentials_build.zip
 
-REM Integração com o Explorer
-if exist "%~dp0src\yt-dlp.reg" regedit /s "%~dp0src\yt-dlp.reg"
-if exist "%~dp0src\ffmpeg.reg" regedit /s "%~dp0src\ffmpeg.reg"
-
 REM Criar a pasta de destino
 if not exist "%TOOLS_DIR%" (
     mkdir "%TOOLS_DIR%"
@@ -43,11 +39,6 @@ DEL "%TOOLS_DIR%\ffmpeg.zip"
 REM Adicionar ao PATH
 SET PATH=%PATH%;%TOOLS_DIR%
 SETX PATH "%PATH%"
-
-:: Import the .reg file to install
-set "SCRIPT_DIR=%~dp0"
-set "REG_FILE=%SCRIPT_DIR%\src\install.reg"
-reg import "%REG_FILE%"
 
 echo Installation Complete!
 echo The binaries are in "%TOOLS_DIR%", and they can be accessed from any command prompt.
