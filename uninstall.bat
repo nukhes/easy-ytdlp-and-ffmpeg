@@ -1,7 +1,11 @@
 @echo off
 SETLOCAL
 SET TOOLS_DIR=C:\video-tools
-$regFile = Join-Path -Path $PSScriptRoot -ChildPath "src\uninstall.reg"
+
+:: Import the .reg file to uninstall
+set "SCRIPT_DIR=%~dp0"
+set "REG_FILE=%SCRIPT_DIR%\src\uninstall.reg"
+reg import "%REG_FILE%"
 
 IF NOT EXIST "%TOOLS_DIR%" (
 	echo yt-dlp and ffmpeg are not installed.
@@ -10,7 +14,6 @@ IF NOT EXIST "%TOOLS_DIR%" (
 )
 
 rmdir /s /q "%TOOLS_DIR%"
-Start-Process reg.exe -ArgumentList "import `"$regFile`"" -Verb RunAs -Wait
 
 echo complete.
 echo yt-dlp and ffmpeg have been removed from your computer

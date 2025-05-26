@@ -4,8 +4,6 @@ SETLOCAL
 REM Caminho de destino para as ferramentas
 SET TOOLS_DIR=C:\VideoTools
 
-$regFile = Join-Path -Path $PSScriptRoot -ChildPath "src\install.reg"
-
 REM Links de download
 SET YT_DLP_URL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe
 SET FFMPEG_URL=https://github.com/GyanD/codexffmpeg/releases/download/7.1/ffmpeg-7.1-essentials_build.zip
@@ -46,7 +44,10 @@ REM Adicionar ao PATH
 SET PATH=%PATH%;%TOOLS_DIR%
 SETX PATH "%PATH%"
 
-Start-Process reg.exe -ArgumentList "import `"$regFile`"" -Verb RunAs -Wait
+:: Import the .reg file to install
+set "SCRIPT_DIR=%~dp0"
+set "REG_FILE=%SCRIPT_DIR%\src\install.reg"
+reg import "%REG_FILE%"
 
 echo Installation Complete!
 echo The binaries are in "%TOOLS_DIR%", and they can be accessed from any command prompt.
