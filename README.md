@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/5366885a-95f3-4b15-8397-9eb12ba1697f
 ## Installation
 Paste this in Windows Powershell (open as admin): 
 ```
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c curl -o install.bat https://raw.githubusercontent.com/nukhes/easy-ytdlp-and-ffmpeg/refs/heads/main/install.bat && install.bat" -Verb RunAs
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c curl -o install.bat https://raw.githubusercontent.com/nukhes/easy-ytdlp-and-ffmpeg/refs/heads/main/src/install.bat && install.bat" -Verb RunAs
 ```
 
 or run the `.\install.bat` and grab a coffee, to uninstall run `.\uninstall.bat`.
